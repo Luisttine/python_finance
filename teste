@@ -1,0 +1,6 @@
+purchase_category -> monthly_expene = 1 -> n
+
+monthly_expense -> purchase_category = n -> 1
+monthly_expense -> bank = 1 -> 1
+
+bank -> monthly_expense = 1 -> 1

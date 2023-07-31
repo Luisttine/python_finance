@@ -6,15 +6,15 @@
             <thead class="bordered">
                 <tr>
                     <th scope="col">ID</th>
-                    <th scope="col">Cateogry</th>
+                    <th scope="col">Institution</th>
                 </tr>
             </thead>
 
             <tbody class="table-group-divider">
-                {% for i in category %}
+                {% for i in banks %}
                 <tr>
-                    <th>{{i.id_purchase_category}}</th>
-                    <th>{{i.category_name}}</th>
+                    <th>{{i.id_bank}}</th>
+                    <th>{{i.institution}}</th>
                 </tr>
                 {% endfor %}
             </tbody>

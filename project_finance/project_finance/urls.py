@@ -20,9 +20,13 @@ from polls import views
 urlpatterns = [
     path('', views.home, name='home'),
 
+    # Category Paths
     path('add_category', views.add_category, name='add_category'),
     path('category', views.category, name='category'),
-    path('list_categ', views.list_categ, name='list_categ')
+    path('list_categ', views.list_categ, name='list_categ'),
 
-    
+    # Bank Paths
+    path('add_bank', views.add_bank, name='add_bank'),
+    path('bank', views.bank, name='bank'),
+    path('list_bank', views.list_bank, name='list_bank'),
 ]
