@@ -1,0 +1,21 @@
+{% extends 'base_html/base.html' %}
+{% block content %}
+
+<form action="{% url 'add_bank' %}" method="POST">
+    <div style="text-align: center;" class="container">
+        <h1>Adding New Bank Institution</h1>
+        Product Name
+        <select class="form-control">
+            {% for i in category %}
+                <option>{{i.category_name}}</option>
+            {% endfor %}
+        </select>
+        Payment Type <input name="institution" class="form-control-sm" type="text">
+        Total Value <input name="institution" class="form-control-sm" type="text">
+        Purchase Date <input name="institution" class="form-control-sm" type="text">
+
+        <button class="btn btn-outline-success"type="submit">Submit</button>
+    </div>
+</form>
+
+{% endblock %}

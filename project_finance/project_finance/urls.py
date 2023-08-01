@@ -29,4 +29,9 @@ urlpatterns = [
     path('add_bank', views.add_bank, name='add_bank'),
     path('bank', views.bank, name='bank'),
     path('list_bank', views.list_bank, name='list_bank'),
+
+    # Purchase Paths
+    path('add_purchase', views.add_purchase, name='add_purchase'),
+    path('purchase', views.purchase, name='purchase'),
+    path('list_purchase', views.list_purchase, name='list_purchase'),
 ]

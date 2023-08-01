@@ -18,6 +18,7 @@ class Bank(models.Model):
 
 class Purchase(models.Model):
     id_monthly_expense = models.AutoField(primary_key=True)
+    product = models.TextField(max_length=255)
     purchase_category = models.ForeignKey(
         PurchaseCategory,
         on_delete=models.CASCADE,
