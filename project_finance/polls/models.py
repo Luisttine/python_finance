@@ -17,14 +17,14 @@ class Bank(models.Model):
         return self.institution
 
 class Purchase(models.Model):
-    id_monthly_expense = models.AutoField(primary_key=True)
+    id_purchase = models.AutoField(primary_key=True)
     product = models.TextField(max_length=255)
     purchase_category = models.ForeignKey(
         PurchaseCategory,
         on_delete=models.CASCADE,
     )
-    bank = models.OneToOneField(
-        'Bank',
+    bank = models.ForeignKey(
+        Bank,
         on_delete=models.CASCADE,
     )
     payment_type = models.TextField(max_length=12)

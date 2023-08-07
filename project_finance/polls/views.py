@@ -12,7 +12,7 @@ def add_category(request):
     new_category = PurchaseCategory()
     new_category.category_name = request.POST.get('category_name')
     new_category.save()
-    print(new_category, ' was successfuly added.')
+    print(new_category, 'was successfuly added.')
 
     categories = {
         'category': PurchaseCategory.objects.all()
@@ -39,7 +39,7 @@ def add_bank(request):
     new_bank = Bank()
     new_bank.institution = request.POST.get('institution')
     new_bank.save()
-    print(new_bank, ' was successfuly added.')
+    print(new_bank, 'was successfuly added.')
 
     banks = {
         'institution': Bank.objects.all()
@@ -65,13 +65,14 @@ def list_bank(request):
 def add_purchase(request):
     new_purchase = Purchase()
     new_purchase.product = request.POST.get('product')
-    new_purchase.purchase_category = request.POST.get('category')
-    new_purchase.payment_type = request.POST.get('pay_type')
+    new_purchase.purchase_category = PurchaseCategory.objects.get(pk=request.POST.get('category_id'))
+    new_purchase.bank =  Bank.objects.get(pk=request.POST.get('bank_id'))
+    new_purchase.payment_type = request.POST.get('payment_type')
     new_purchase.total_value = request.POST.get('total')
     new_purchase.purchase_date = request.POST.get('purchase_date')
 
     new_purchase.save()
-    print(new_purchase, ' was successfuly added.')
+    print(new_purchase.product, 'was successfuly added.')
 
     purchases = {
         'product': Purchase.objects.all()
@@ -88,7 +89,8 @@ def purchase(request):
     'category': PurchaseCategory.objects.all()
     }
 
-    return render(request, 'purchase/add_purchase.html', {'banks': banks, 'categories': categories  })
+    #print(banks)
+    return render(request, 'purchase/add_purchase.html', {"banks" : banks,  "categories" : categories   })
 
 def list_purchase(request):
     

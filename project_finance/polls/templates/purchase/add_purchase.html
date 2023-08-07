@@ -1,19 +1,37 @@
 {% extends 'base_html/base.html' %}
 {% block content %}
 
-<form action="{% url 'add_bank' %}" method="POST">
+<form action="{% url 'add_purchase' %}" method="POST">
     <div style="text-align: center;" class="container">
-        <h1>Adding New Bank Institution</h1>
-        Product Name
-        <select class="form-control">
-            {% for i in category %}
-                <option>{{i.category_name}}</option>
+        <h1>Adding New Product Purchase</h1>
+
+        <label>Product Name</label><input name="product" class="form-control-sm" type="text" placeholder="Placa de Video"> 
+        </br>
+
+        <label>Purchase Category</label> 
+        <select class="form-control-sm" name="category_id">
+            {% for cat in categories.category %}
+                <option value="{{ cat.id_purchase_category }}">{{ cat }}</option>
             {% endfor %}
         </select>
-        Payment Type <input name="institution" class="form-control-sm" type="text">
-        Total Value <input name="institution" class="form-control-sm" type="text">
-        Purchase Date <input name="institution" class="form-control-sm" type="text">
+        </br>
 
+        <label>Institution</label> 
+        <select class="form-control-sm" name="bank_id">
+            {% for bank in banks.institution %}
+                <option value="{{ bank.id_bank }}">{{ bank }}</option>
+            {% endfor %}
+        </select>
+        </br>
+
+        <label>Payment Type</label><input name="payment_type" class="form-control-sm" type="text" placeholder="Pix">
+        </br>
+
+        <label>Total Value</label><input name="total" class="form-control-sm" type="text"  placeholder="123.45">
+        </br>
+
+        <label>Purchase Date</label><input name="purchase_date" class="form-control-sm" type="date">
+        </br>
         <button class="btn btn-outline-success"type="submit">Submit</button>
     </div>
 </form>

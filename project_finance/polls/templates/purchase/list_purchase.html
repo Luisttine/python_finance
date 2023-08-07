@@ -7,15 +7,25 @@
             <thead class="bordered">
                 <tr>
                     <th scope="col">ID</th>
+                    <th scope="col">Product</th>
+                    <th scope="col">Purchase Category</th>
                     <th scope="col">Institution</th>
+                    <th scope="col">Payment Type</th>
+                    <th scope="col">Total</th>
+                    <th scope="col">Purchase Date</th>
                 </tr>
             </thead>
 
             <tbody class="table-group-divider">
-                {% for bank in institution %}
+                {% for prod in product %}
                 <tr>
-                    <th>{{ bank.id_bank }}</th>
-                    <th>{{ bank.institution }}</th>
+                    <th>{{ prod.id_purchase }}</th>
+                    <th>{{ prod.product }}</th>
+                    <th>{{ prod.purchase_category }}</th>
+                    <th>{{ prod.bank }}</th>
+                    <th>{{ prod.payment_type }}</th>
+                    <th>{{ prod.total_value }}</th>
+                    <th>{{ prod.purchase_date }}</th>
                 </tr>
                 {% endfor %}
             </tbody>
