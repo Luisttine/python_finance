@@ -14,9 +14,12 @@ urlpatterns = [
     path('add_bank', views.add_bank, name='add_bank'),
     path('bank', views.bank, name='bank'),
     path('list_bank', views.list_bank, name='list_bank'),
+    path('delete_bank/<int:bank_id>', views.delete_bank, name='delete_bank'),
 
     # Purchase Paths
     path('add_purchase', views.add_purchase, name='add_purchase'),
     path('purchase', views.purchase, name='purchase'),
     path('list_purchase', views.list_purchase, name='list_purchase'),
+    path('delete_purchase/<int:purchase_id>', views.delete_purchase, name='delete_purchase'),
+
 ]
