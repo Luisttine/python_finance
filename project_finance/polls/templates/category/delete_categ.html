@@ -7,7 +7,6 @@
                 <tr>
                     <th scope="col">ID</th>
                     <th scope="col">Cateogry</th>
-                    <th scope="col">Options</th>
                 </tr>
             </thead>
 
@@ -16,7 +15,6 @@
                 <tr>
                     <th>{{i.id_purchase_category}}</th>
                     <th>{{i.category_name}}</th>
-                    <th><a href="delete_categ/{{i.id_purchase_category}}" title="delete">Delete/</a><a href="edit_categ/{{i.id_purchase_category}}" title="edit">Edit</a></th>
                 </tr>
                 {% endfor %}
             </tbody>

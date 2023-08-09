@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from .models import *
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib import messages 
 
 def home(request):
     return render(request, 'home/home.html')
@@ -31,6 +32,19 @@ def list_categ(request):
 
     print(categories)
     return render(request, 'category/list_categ.html', categories)
+
+def delete_categ(request, category_id):
+    if PurchaseCategory.objects.filter(id_purchase_category=category_id):
+        categ = get_object_or_404(PurchaseCategory, id_purchase_category=category_id)
+        categ.delete()
+        print(f'{categ} excluido com sucesso!')
+    else:
+        print(f'{category_id} does not exist!')
+    categories = {
+        'category': PurchaseCategory.objects.all()
+    }
+    return render(request, 'category/list_categ.html', categories)
+
 
 
 # Bank Actions

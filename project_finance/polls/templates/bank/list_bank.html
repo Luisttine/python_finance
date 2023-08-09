@@ -8,6 +8,7 @@
                 <tr>
                     <th scope="col">ID</th>
                     <th scope="col">Institution</th>
+                    <th scope="col">Options</th>
                 </tr>
             </thead>
 
@@ -16,6 +17,7 @@
                 <tr>
                     <th>{{ bank.id_bank }}</th>
                     <th>{{ bank.institution }}</th>
+                    <th><a href="{% url 'delete_bank/' {{i.id_bank}}%}" title="delete">Delete/</a><a href="edit_categ/{{i.id_purchase_category}}" title="edit">Edit</a></th>
                 </tr>
                 {% endfor %}
             </tbody>
