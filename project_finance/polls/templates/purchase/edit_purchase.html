@@ -1,0 +1,49 @@
+{% extends 'base_html/base.html' %}
+{% block content %}
+
+    {% if messages %}
+    <div class="alert alert-success" role="alert">
+        <ul class="messages">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+
+    <form action="{% url 'edit_purchase' purchase.id_purchase %}" method="POST">
+        <div style="text-align: center;" class="container">
+            <h1>Update a Purchase</h1>
+
+            <label>Product Name</label><input name="product" class="form-control-sm" type="text" value="{{ purchase.product }}"> 
+            </br>
+
+            <label>Purchase Category</label> 
+            <select class="form-control-sm" name="category_id" selected="{{ purchase.purchase_category }}">
+                {% for cat in categories.category %}
+                    <option value="{{ cat.id_purchase_category }}">{{ cat }}</option>
+                {% endfor %}
+            </select>
+            </br>
+
+            <label>Institution</label> 
+            <select class="form-control-sm" name="bank_id" selected="{{ purchase.bank }}">
+                {% for bank in banks.institution %}
+                    <option value="{{ bank.id_bank }}">{{ bank }}</option>
+                {% endfor %}
+            </select>
+            </br>
+
+            <label>Payment Type</label><input name="payment_type" class="form-control-sm" type="text" value="{{ purchase.payment_type }}">
+            </br>
+
+            <label>Total Value</label><input name="total" class="form-control-sm" type="text"  value="{{ purchase.total_value }}">
+            </br>
+
+            <label>Purchase Date</label><input name="purchase_date" class="form-control-sm" type="date" value="{{ purchase.purchase_date|date:'Y-d-m' }}">
+            </br>
+            <button class="btn btn-outline-success"type="submit">Submit</button>
+        </div>
+    </form>
+
+{% endblock %}

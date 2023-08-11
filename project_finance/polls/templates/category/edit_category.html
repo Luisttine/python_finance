@@ -1,0 +1,13 @@
+{% extends 'base_html/base.html' %}
+{% block content %}
+
+<form action="{% url 'edit_categ' categ.id_purchase_category %}" method="POST">
+    <div style="text-align: center;" class="container">
+        <h1>Update a Category</h1>
+        Category Name <input name="category_name" class="form-control-sm" type="text" value="{{ categ.category_name }}">
+        <button class="btn btn-outline-danger" type="button" onclick="location.href='/list_categ'">Cancel</button>
+        <button class="btn btn-outline-warning"type="submit">Update</button>
+    </div>
+</form>
+
+{% endblock %}

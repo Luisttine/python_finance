@@ -9,17 +9,20 @@ urlpatterns = [
     path('category', views.category, name='category'),
     path('list_categ', views.list_categ, name='list_categ'),
     path('delete_categ/<int:category_id>', views.delete_categ, name='delete_categ'),
+    path('edit_categ/<int:category_id>', views.edit_categ, name='edit_categ'),
 
     # Bank Paths
     path('add_bank', views.add_bank, name='add_bank'),
     path('bank', views.bank, name='bank'),
     path('list_bank', views.list_bank, name='list_bank'),
     path('delete_bank/<int:bank_id>', views.delete_bank, name='delete_bank'),
+    path('edit_bank/<int:bank_id>', views.edit_bank, name='edit_bank'),
 
     # Purchase Paths
     path('add_purchase', views.add_purchase, name='add_purchase'),
     path('purchase', views.purchase, name='purchase'),
     path('list_purchase', views.list_purchase, name='list_purchase'),
     path('delete_purchase/<int:purchase_id>', views.delete_purchase, name='delete_purchase'),
+    path('edit_purchase/<int:purchase_id>', views.edit_purchase, name='edit_purchase'),
 
 ]

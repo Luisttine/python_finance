@@ -14,7 +14,6 @@
     <div class="container">
         {% if institution %}
             <table class="table table-light table-striped table-hover table-bordered">
-                
                 <thead class="bordered">
                     <tr>
                         <th scope="col">ID</th>
@@ -22,13 +21,12 @@
                         <th scope="col">Options</th>
                     </tr>
                 </thead>
-
                 <tbody class="table-group-divider">
                     {% for bank in institution %}
                     <tr>
                         <th>{{ bank.id_bank }}</th>
                         <th>{{ bank.institution }}</th>
-                        <th><a href="delete_bank/{{bank.id_bank}}" title="delete">Delete/</a><a href="edit_categ/{{bank.id_purchase_category}}" title="edit">Edit</a></th>
+                        <th><a href="delete_bank/{{bank.id_bank}}" title="delete">Delete/</a><a href="edit_bank/{{bank.id_bank}}" title="edit">Edit</a></th>
                     </tr>
                     {% endfor %}
                 </tbody>

@@ -1,0 +1,12 @@
+{% extends 'base_html/base.html' %}
+{% block content %}
+
+<form action="{% url 'edit_bank' bank.id_bank %}" method="POST">
+    <div style="text-align: center;" class="container">
+        <h1>Adding New Bank Institution</h1>
+        Institution Name <input name="institution" class="form-control-sm" type="text" value="{{ bank.institution }}">
+        <button class="btn btn-outline-danger" type="button" onclick="location.href='/list_bank '">Cancel</button>
+        <button class="btn btn-outline-warning"type="submit">Update</button>    </div>
+</form>
+
+{% endblock %}

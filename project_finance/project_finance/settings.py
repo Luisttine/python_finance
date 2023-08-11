@@ -82,7 +82,8 @@ DATABASES = {
     }
 }
 '''
-
+# LINUX DATABASE
+'''
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
@@ -93,7 +94,19 @@ DATABASES = {
         "PORT": "3306",
     }
 }
+'''
 
+# WINDOWS DATABASE
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": "finance",
+        "USER": "root",
+        "PASSWORD": "root-100",
+        "HOST": "localhost",
+        "PORT": "3305",
+    }
+}
 '''
 DATABASES = {
     'default': {
