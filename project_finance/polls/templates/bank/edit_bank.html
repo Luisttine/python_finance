@@ -3,8 +3,16 @@
 
 <form action="{% url 'edit_bank' bank.id_bank %}" method="POST">
     <div style="text-align: center;" class="container">
-        <h1>Adding New Bank Institution</h1>
-        Institution Name <input name="institution" class="form-control-sm" type="text" value="{{ bank.institution }}">
+        <h1>Edit a Institution</h1>
+            <label>Institution Name</label><input name="institution" class="form-control-sm" type="text" value="{{ bank.institution }}">
+        </br>
+
+        <label>Total Debt Value</label><input name="debt_value" class="form-control-sm" type="text" value="{{ bank.debt_total_value }}">
+        </br>
+
+        <label>Total Credit Value</label><input name="credit_value" class="form-control-sm" type="text" value="{{ bank.credit_total_value }}">
+        </br>
+
         <button class="btn btn-outline-danger" type="button" onclick="location.href='/list_bank '">Cancel</button>
         <button class="btn btn-outline-warning"type="submit">Update</button>    </div>
 </form>

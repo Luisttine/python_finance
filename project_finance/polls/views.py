@@ -75,6 +75,8 @@ def add_bank(request):
     else:
         new_bank = Bank()
         new_bank.institution = request.POST.get('institution')
+        new_bank.debt_total_value = request.POST.get('debt_value')
+        new_bank.credit_total_value = request.POST.get('credit_value')
         new_bank.save()
 
         print(new_bank, 'was successfuly added.')
@@ -121,6 +123,8 @@ def edit_bank(request, bank_id):
 
     if request.method == 'POST':
         bank.institution = request.POST.get('institution')
+        bank.debt_total_value = request.POST.get('debt_value')
+        bank.credit_total_value = request.POST.get('credit_value')
         bank.save()
         return redirect('list_bank')  # Redireciona para a página de listagem de banks
 

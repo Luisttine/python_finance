@@ -10,8 +10,8 @@ class PurchaseCategory(models.Model):
 class Bank(models.Model):
     id_bank = models.AutoField(primary_key=True)
     institution = models.TextField(max_length=255)
-#    debt_value = models.FloatField()
-#    credit_value = models.FloatField()
+    debt_total_value = models.FloatField()
+    credit_total_value = models.FloatField()
 
     def __str__(self):
         return self.institution
