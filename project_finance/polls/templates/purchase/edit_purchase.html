@@ -18,6 +18,14 @@
             <label>Product Name</label><input name="product" class="form-control-sm" type="text" value="{{ purchase.product }}"> 
             </br>
 
+            <label>Profile</label> 
+            <select class="form-control-sm" name="profile_id" selected="{{ purchase.profile }}">
+                {% for prof in profiles.profile %}
+                    <option value="{{ prof.id_profile }}">{{ prof }}</option>
+                {% endfor %}
+            </select>
+            </br> 
+
             <label>Purchase Category</label> 
             <select class="form-control-sm" name="category_id" selected="{{ purchase.purchase_category }}">
                 {% for cat in categories.category %}
@@ -40,9 +48,9 @@
             <label>Total Value</label><input name="total" class="form-control-sm" type="text"  value="{{ purchase.total_value }}">
             </br>
 
-            <label>Purchase Date</label><input name="purchase_date" class="form-control-sm" type="date" value="{{ purchase.purchase_date|date:'Y-d-m' }}">
+            <label>Purchase Date</label><input name="purchase_date" class="form-control-sm" type="date" value="{{ purchase.purchase_date|date:'Y-m-d' }}">
             </br>
-            <button class="btn btn-outline-success"type="submit">Submit</button>
+            <button class="btn btn-outline-success" type="submit">Submit</button>
         </div>
     </form>
 

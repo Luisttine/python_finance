@@ -1,0 +1,25 @@
+{% extends 'base_html/base.html' %}
+{% block content %}
+
+    {% if messages %}
+    <div class="alert alert-success" role="alert">
+        <ul class="messages">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+
+    <form action="{% url 'edit_profile' profile.id_profile %}" method="POST">
+        <div style="text-align: center;" class="container">
+            <h1>Update a Profile</h1>
+
+            <label>Profile Name</label><input name="profile" class="form-control-sm" type="text" value="{{ profile.profile_name }}"> 
+            </br>
+
+            <button class="btn btn-outline-success" type="submit">Submit</button>
+        </div>
+    </form>
+
+{% endblock %}

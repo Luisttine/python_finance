@@ -130,6 +130,69 @@ def edit_bank(request, bank_id):
 
     return render(request, 'bank/edit_bank.html', {"bank": bank})
 
+
+# Category Actions
+@csrf_exempt
+def add_profile(request):
+    if Profile.objects.filter(profile_name=request.POST.get('profile')):
+        messages.error(request, f"({request.POST.get('profile')}) already exists! Try another profile name.")
+    else:
+        new_profile = Profile()
+        new_profile.profile_name = request.POST.get('profile')
+        new_profile.save()
+
+        print(new_profile, 'was successfuly added.')
+        messages.success(request, f"({new_profile}) was successfuly added.")
+
+    profiles = {
+        'profile': Profile.objects.all()
+    }
+    print(profiles)
+    
+    return render(request, 'profile/list_profile.html', profiles)
+
+def profile(request):
+    return render(request, 'profile/add_profile.html')
+
+def list_profile(request):
+    
+    profiles = {
+        'profile': Profile.objects.all()
+    }
+
+    if not profiles:
+        print('There are no profiles yet! Try register a new one by clicking ')
+
+    print(profiles['profile'])
+    return render(request, 'profile/list_profile.html', profiles)
+
+def delete_profile(request, profile_id):
+    if Profile.objects.filter(id_profile=profile_id):
+        profile = get_object_or_404(Profile, id_profile=profile_id)
+        profile.delete()
+
+        print(f'{profile} excluido com sucesso!')
+        messages.success(request, f"({profile}) was deleted successfuly.")
+    else:
+        messages.error(request, f"{profile_id} does not exists.")
+        print(f'{profile_id} does not exist!')
+
+    response = redirect('/list_profile')
+    return response
+
+
+@csrf_exempt
+def edit_profile(request, profile_id):
+    profile = get_object_or_404(Profile, id_profile=profile_id)
+
+    if request.method == 'POST':
+        profile.profile_name = request.POST.get('profile')
+        profile.save()
+        return redirect('list_profile')  # Redireciona para a página de listagem de profiles
+
+    return render(request, 'profile/edit_profile.html', {"profile": profile})
+
+
 # Purchase Actions
 @csrf_exempt
 def add_purchase(request):
@@ -138,6 +201,7 @@ def add_purchase(request):
     else:
         new_purchase = Purchase()
         new_purchase.product = request.POST.get('product')
+        new_purchase.profile = Profile.objects.get(pk=request.POST.get('profile_id'))
         new_purchase.purchase_category = PurchaseCategory.objects.get(pk=request.POST.get('category_id'))
         new_purchase.bank =  Bank.objects.get(pk=request.POST.get('bank_id'))
         new_purchase.payment_type = request.POST.get('payment_type')
@@ -146,7 +210,7 @@ def add_purchase(request):
         new_purchase.save()
 
         print(new_purchase.product, 'was successfuly added.')
-        messages.success(request, f"({new_purchase.product}) was successfuly added.")
+        messages.success(request, f"({new_purchase.product}) for {new_purchase.profile} was successfuly added.")
 
     response = redirect('/list_purchase')
 
@@ -160,9 +224,13 @@ def purchase(request):
     categories = {
     'category': PurchaseCategory.objects.all()
     }
+    
+    profiles = {
+        'profile': Profile.objects.all()
+    }
 
     #print(banks)
-    return render(request, 'purchase/add_purchase.html', {"banks" : banks,  "categories" : categories   })
+    return render(request, 'purchase/add_purchase.html', {"banks" : banks,  "categories" : categories, "profiles" : profiles})
 
 def list_purchase(request):
     
@@ -201,6 +269,10 @@ def edit_purchase(request, purchase_id):
     'category': PurchaseCategory.objects.all()
     }
 
+    profiles = {
+        'profile': Profile.objects.all()
+    }
+
     if request.method == 'POST':
         purchase.product = request.POST.get('product')
         purchase.purchase_category = PurchaseCategory.objects.get(pk=request.POST.get('category_id'))
@@ -211,4 +283,4 @@ def edit_purchase(request, purchase_id):
         purchase.save()
         return redirect('list_purchase')  # Redireciona para a página de listagem de purchaseorias
 
-    return render(request, 'purchase/edit_purchase.html', {"purchase": purchase, "banks" : banks, "categories" : categories})
+    return render(request, 'purchase/edit_purchase.html', {"purchase": purchase, "banks" : banks, "categories" : categories, "profiles" : profiles})

@@ -25,4 +25,10 @@ urlpatterns = [
     path('delete_purchase/<int:purchase_id>', views.delete_purchase, name='delete_purchase'),
     path('edit_purchase/<int:purchase_id>', views.edit_purchase, name='edit_purchase'),
 
+    path('add_profile', views.add_profile, name='add_profile'),
+    path('profile', views.profile, name='profile'),
+    path('list_profile', views.list_profile, name='list_profile'),
+    path('delete_profile/<int:profile_id>', views.delete_profile, name='delete_profile'),
+    path('edit_profile/<int:profile_id>', views.edit_profile, name='edit_profile'),
+
 ]

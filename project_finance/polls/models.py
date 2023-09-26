@@ -15,12 +15,23 @@ class Bank(models.Model):
 
     def __str__(self):
         return self.institution
+    
+class Profile(models.Model):
+    id_profile = models.AutoField(primary_key=True)
+    profile_name = models.TextField(max_length=255, default='Luis')
+
+    def __str__(self):
+        return self.profile_name
 
 class Purchase(models.Model):
     id_purchase = models.AutoField(primary_key=True)
     product = models.TextField(max_length=255)
     purchase_category = models.ForeignKey(
         PurchaseCategory,
+        on_delete=models.CASCADE,
+    )
+    profile = models.ForeignKey(
+        Profile,
         on_delete=models.CASCADE,
     )
     bank = models.ForeignKey(

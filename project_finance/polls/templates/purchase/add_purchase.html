@@ -18,6 +18,14 @@
             <label>Product Name</label><input name="product" class="form-control-sm" type="text" placeholder="Placa de Video"> 
             </br>
 
+            <label>Profile</label> 
+            <select class="form-control-sm" name="profile_id">
+                {% for prof in profiles.profile %}
+                    <option value="{{ prof.id_profile }}">{{ prof }}</option>
+                {% endfor %}
+            </select>
+            </br>   
+
             <label>Purchase Category</label> 
             <select class="form-control-sm" name="category_id">
                 {% for cat in categories.category %}
