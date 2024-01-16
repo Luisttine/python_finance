@@ -50,7 +50,9 @@
 
             <label>Purchase Date</label><input name="purchase_date" class="form-control-sm" type="date" value="{{ purchase.purchase_date|date:'Y-m-d' }}">
             </br>
-            <button class="btn btn-outline-success" type="submit">Submit</button>
+
+            <button class="btn btn-outline-danger" type="button" onclick="location.href='/list_purchase'">Cancel</button>
+            <button class="btn btn-outline-warning" type="submit">Update</button>
         </div>
     </form>
 

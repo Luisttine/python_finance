@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.management import call_command
 
 class PurchaseCategory(models.Model):
     id_purchase_category = models.AutoField(primary_key=True)
@@ -18,7 +19,7 @@ class Bank(models.Model):
     
 class Profile(models.Model):
     id_profile = models.AutoField(primary_key=True)
-    profile_name = models.TextField(max_length=255, default='Luis')
+    profile_name = models.CharField(max_length=255)
 
     def __str__(self):
         return self.profile_name
@@ -43,4 +44,13 @@ class Purchase(models.Model):
     purchase_date = models.DateField()
 
     def __str__(self):
-        return self.payment_type
+        return self.payment_type 
+
+# class ModelToInsert(models.Model):
+#     field = models.TextField(max_length=255, default='LuizinhoCrazy')
+
+#     def __str__(self):
+#         return self.field
+
+# Aqui, após definir seu modelo, você pode chamar o comando loaddata:
+# call_command('loaddata', 'profile_data.json')

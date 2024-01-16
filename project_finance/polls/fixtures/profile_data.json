@@ -1,0 +1,9 @@
+[
+    {
+        "model": "polls.Profile",
+        "pk": 1,
+        "fields": {
+            "profile_name": "LuizinhoCrazy"
+        }
+    }
+]
