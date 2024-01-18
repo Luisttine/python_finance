@@ -27,7 +27,7 @@
             </br> 
 
             <label>Purchase Category</label> 
-            <select class="form-control-sm" name="category_id" selected="{{ purchase.purchase_category }}">
+            <select class="form-control-sm" name="category_id" selected="{{ cat.id_purchase_category }}">
                 {% for cat in categories.category %}
                     <option value="{{ cat.id_purchase_category }}">{{ cat }}</option>
                 {% endfor %}

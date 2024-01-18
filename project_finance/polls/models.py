@@ -1,5 +1,5 @@
 from django.db import models
-from django.core.management import call_command
+# from django.core.management import call_command
 
 class PurchaseCategory(models.Model):
     id_purchase_category = models.AutoField(primary_key=True)

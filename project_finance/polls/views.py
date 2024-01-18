@@ -210,6 +210,8 @@ def add_purchase(request):
         new_purchase.purchase_date = request.POST.get('purchase_date')
         new_purchase.save()
 
+        CalculatePurchase(new_purchase.payment_type, new_purchase.total_value, new_purchase.purchase_date, request.POST.get('bank_id'), 0)
+
         print(new_purchase.product, 'was successfuly added.')
         messages.success(request, f"({new_purchase.product}) for {new_purchase.profile} was successfuly added.")
 
@@ -275,6 +277,9 @@ def edit_purchase(request, purchase_id):
     }
 
     if request.method == 'POST':
+        last_val = purchase.total_value
+        last_payment_type = purchase.payment_type
+
         purchase.product = request.POST.get('product')
         purchase.purchase_category = PurchaseCategory.objects.get(pk=request.POST.get('category_id'))
         purchase.bank =  Bank.objects.get(pk=request.POST.get('bank_id'))
@@ -283,27 +288,44 @@ def edit_purchase(request, purchase_id):
         purchase.purchase_date = request.POST.get('purchase_date')
         purchase.save()
 
-        CalculatePurchase(purchase.payment_type, purchase.total_value, purchase.purchase_date, request.POST.get('bank_id'))
+        if last_payment_type != purchase.payment_type and last_val != purchase.total_value:
+            CalculatePurchase(purchase.payment_type, purchase.total_value, purchase.purchase_date, request.POST.get('bank_id'), last_val, last_payment_type)
+        elif last_payment_type == purchase.payment_type and last_val == purchase.total_value:
+            CalculatePurchase(purchase.payment_type, purchase.total_value, purchase.purchase_date, request.POST.get('bank_id'), 0, purchase.payment_type)
+        elif last_payment_type == purchase.payment_type and last_val != purchase.total_value:
+            CalculatePurchase(purchase.payment_type, purchase.total_value, purchase.purchase_date, request.POST.get('bank_id'), last_val, purchase.payment_type)
+        elif last_payment_type != purchase.payment_type and last_val == purchase.total_value:
+            CalculatePurchase(purchase.payment_type, purchase.total_value, purchase.purchase_date, request.POST.get('bank_id'), 0, last_payment_type)
+
 
         return redirect('list_purchase')  # Redireciona para a página de listagem de purchaseorias
 
     return render(request, 'purchase/edit_purchase.html', {"purchase": purchase, "banks" : banks, "categories" : categories, "profiles" : profiles})
 
 @csrf_exempt
-def CalculatePurchase(payment_type, total_value, purchase_date, bank_id):
+def CalculatePurchase(payment_type, total_value, purchase_date, bank_id, last_val, last_payment_type):
     date_now = str(datetime.datetime.now())[:10]
     bank = get_object_or_404(Bank, id_bank=bank_id)
 
     if purchase_date <= date_now:
-        if payment_type == 'Debito':
-            bank.debt_total_value = bank.debt_total_value - float(total_value)
-            print('Entrou no debito')
-            # message = f'foi subtraido {total_value} do banco {bank.institution}, resultando no valor total de {bank.debt_total_value} no debito.'
-        else:
-            bank.credit_total_value = bank.credit_total_value - float(total_value)
-            print('Entrou no credito')
-            # message = f'foi subtraido {total_value} do banco {bank.institution}, resultando no valor total de {bank.credit_total_value} no credito.'
+        if last_payment_type == 'Debito':
+            if payment_type == 'Debito':
+                bank.debt_total_value = (bank.debt_total_value + float(last_val)) - float(total_value)
+                print('Entrou no debito')
+                # message = f'foi subtraido {total_value} do banco {bank.institution}, resultando no valor total de {bank.debt_total_value} no debito.'
+            else:
+                bank.debt_total_value = bank.debt_total_value + float(last_val)
+                bank.credit_total_value = bank.credit_total_value - float(total_value)
 
+        elif last_payment_type == 'Credito':
+            if payment_type == 'Credito':
+                bank.credit_total_value = (bank.credit_total_value + float(last_val)) - float(total_value)
+                print('Entrou no Credito')
+                # message = f'foi subtraido {total_value} do banco {bank.institution}, resultando no valor total de {bank.credit_total_value} no credito.'
+            else:
+                bank.credit_total_value = bank.credit_total_value + float(last_val)
+                bank.debt_total_value = bank.debt_total_value - float(total_value)
+            
         bank.save()
     else:
         final = 'date_now é maior'
